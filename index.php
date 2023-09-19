@@ -5,63 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EatStreet - Discover Local Restaurants</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <!-- Header -->
-    <header class="bg-dark text-white py-3">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-3">
-                    <h1 class="mb-0"><a href="#" class="text-white">EatStreet</a></h1>
-                </div>
-                <div class="col-md-6">
-                    <form class="search-form">
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="cityInput" placeholder="Enter your city">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" id="searchButton">Search</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-md-3 text-right">
-                    <ul class="list-inline">
-                        <li class="list-inline-item"><a href="#" class="text-white">Login</a></li>
-                        <li class="list-inline-item"><a href="#" class="text-white">Register</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </header>
+    <?php include 'includes/header.php'; ?>
 
     <!-- Navigation Menu -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Menu</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Categories</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About Us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?php include 'includes/navbar.php'; ?>
 
     <!-- Introductory Content -->
     <section class="container my-5">
@@ -213,44 +164,12 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white py-3">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <h5>Contact Us</h5>
-                    <address>
-                        123 Main Street<br>
-                        City, State 12345<br>
-                        Email: info@eatstreet.com<br>
-                        Phone: (123) 456-7890
-                    </address>
-                </div>
-                <div class="col-md-4">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Menu</a></li>
-                        <li><a href="#">Categories</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h5>Follow Us</h5>
-                    <ul class="list-inline">
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-facebook"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <?php include 'includes/footer.php'; ?>
 
     <!-- Bootstrap JS and jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
