@@ -5,17 +5,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Initialize an array to store error messages
     $errors = [];
 
-    // Retrieve form data
-    $firstName = $_POST['firstName'];
-    $lastName = $_POST['lastName'];
-    $email = $_POST['email'];
-    $contactNumber = $_POST['contactNumber'];
-    $password = $_POST['password'];
-    $confirmPassword = $_POST['confirmPassword'];
-    $gender = $_POST['gender'];
+    // Retrieve user input from the form
+    $firstName = $_POST["user_signUpFirstName"];
+    $lastName = $_POST["user_signUpLastName"];
+    $email = $_POST["user_signUpEmail"];
+    $contactNumber = $_POST["user_signUpContactNumber"];
+    $password = $_POST["user_signUpPassword"];
+    $confirmPassword = $_POST["user_signUpConfirmPassword"];
+    $gender = $_POST["user_signUpGender"];
 
     // Validate the form data (You can add more validation as needed)
-    if (empty($firstName) || empty($lastName) || empty($email) || empty($password) || empty($confirmPassword) || empty($gender)) {
+    if (empty($firstName) || empty($lastName) || empty($email) || empty($contactNumber) || empty($password) || empty($confirmPassword) || empty($gender)) {
         $errors[] = 'All fields are required.';
     }
 
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } else {
         // Validation errors occurred, display them
-        echo implode('<br>', $errors);
+        echo implode(' , ', $errors);
     }
 } else {
     // Redirect or handle GET requests if needed

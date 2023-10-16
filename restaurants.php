@@ -1,0 +1,2 @@
+<?php
+// For Restaurents page

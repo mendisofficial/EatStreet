@@ -1,0 +1,49 @@
+/* Sample Shopping Cart Styles */
+.cart-container {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cart-container h2 {
+    font-size: 24px;
+    margin: 0 0 20px;
+}
+
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.cart-table th, .cart-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+.cart-table input {
+    width: 40px;
+    padding: 5px;
+    text-align: center;
+}
+
+.remove-button {
+    background-color: #ff4b4b;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.cart-summary {
+    text-align: right;
+    margin-top: 20px;
+}
+
+#cart-total {
+    font-weight: bold;
+    font-size: 18px;
+}

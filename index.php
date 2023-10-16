@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +26,7 @@
                 <a href="#" class="btn btn-primary">Get Started</a>
             </div>
             <div class="col-md-6">
-                <img src="https://picsum.photos/600/400" alt="Food Image" class="img-fluid">
+                <img src="https://via.placeholder.com/600x400" alt="Food Image" class="img-fluid">
             </div>
         </div>
     </section>
@@ -32,124 +34,122 @@
     <!-- Horizontal Rule -->
     <hr>
 
-    <!-- Recently Added Restaurants Section with Pagination (Placeholder) -->
+    <?php
+    require_once 'connection/connect.php';
+
+    // Number of results per page
+    $resultsPerPage = 3;
+
+    // Get the current page number from the URL, default to page 1
+    $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+
+    // Calculate the OFFSET for the SQL query
+    $offset = ($page - 1) * $resultsPerPage;
+
+    // Query to fetch the most recently added 6 restaurants
+    $query = "SELECT * FROM restaurants ORDER BY created_at DESC LIMIT $resultsPerPage OFFSET $offset";
+    $result = mysqli_query($conn, $query);
+
+    // Query to count the total number of restaurants
+        //$totalQuery = "SELECT COUNT(*) as total FROM restaurants";
+        //$totalResult = mysqli_query($conn, $totalQuery);
+        //$totalRow = mysqli_fetch_assoc($totalResult);
+        //$totalRestaurants = $totalRow['total'];
+    $totalRestaurants = 6;
+
+    // Calculate the total number of pages
+    $totalPages = ceil($totalRestaurants / $resultsPerPage);
+    ?>
+
+    <!-- Recently Added Restaurants Section with Pagination -->
     <section class="container my-5">
         <h2>Recently Added Restaurants</h2>
 
         <div class="row">
-            <!-- Placeholder restaurant cards for the current page -->
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://picsum.photos/200/150" class="card-img-top" alt="Restaurant 1">
-                    <div class="card-body">
-                        <h5 class="card-title">Restaurant Name 1</h5>
-                        <p class="card-text">Cuisine Type: Cuisine 1</p>
-                        <p class="card-text">Rating: 4.5/5</p>
-                        <a href="#" class="btn btn-primary">View Menu</a>
+            <!-- Loop through the retrieved restaurants and display them -->
+            <?php while ($row = mysqli_fetch_assoc($result)) : ?>
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="https://via.placeholder.com/200x150" class="card-img-top" alt="<?php echo $row['name']; ?>">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $row['name']; ?></h5>
+                            <p class="card-text">Description: <?php echo $row['description']; ?></p>
+                            <p class="card-text">Address: <?php echo $row['address']; ?></p>
+                            <!-- Add more restaurant details as needed -->
+                            <a href="#" class="btn btn-primary">View Menu</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://picsum.photos/200/150" class="card-img-top" alt="Restaurant 2">
-                    <div class="card-body">
-                        <h5 class="card-title">Restaurant Name 2</h5>
-                        <p class="card-text">Cuisine Type: Cuisine 2</p>
-                        <p class="card-text">Rating: 4/5</p>
-                        <a href="#" class="btn btn-primary">View Menu</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://picsum.photos/200/150" class="card-img-top" alt="Restaurant 3">
-                    <div class="card-body">
-                        <h5 class="card-title">Restaurant Name 3</h5>
-                        <p class="card-text">Cuisine Type: Cuisine 1</p>
-                        <p class="card-text">Rating: 4.9/5</p>
-                        <a href="#" class="btn btn-primary">View Menu</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Add more placeholder restaurant cards for the current page here -->
+            <?php endwhile; ?>
         </div>
 
         <!-- Pagination -->
         <ul class="pagination">
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-            </li>
+            <!-- Generate pagination links -->
+            <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
+                <li class="page-item <?php echo ($page === $i) ? 'active' : ''; ?>">
+                    <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                </li>
+            <?php endfor; ?>
         </ul>
     </section>
 
     <!-- Horizontal Rule -->
     <hr>
 
-    <!-- Recommended Dishes Section with Pagination (Placeholder) -->
+    <!-- Recommended Dishes Section with Pagination -->
     <section class="container my-5">
         <h2>Recommended Dishes</h2>
 
         <div class="row">
-            <!-- Placeholder cards for recommended dishes for the current page -->
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://picsum.photos/200/150" class="card-img-top" alt="Dish 1">
-                    <div class="card-body">
-                        <h5 class="card-title">Recommended Dish 1</h5>
-                        <p class="card-text">Description of the dish.</p>
-                        <p class="card-text">Price: $10.99</p>
-                        <a href="#" class="btn btn-primary">Order Now</a>
+            <?php
+            // Query to fetch recently added menu items (you can customize this query as needed)
+            $menu_query = "SELECT * FROM menu ORDER BY created_at DESC LIMIT $resultsPerPage";
+            $menu_result = mysqli_query($conn, $menu_query);
+
+            // Loop through the retrieved menu items and display them as recommended dishes
+            while ($menu_item = mysqli_fetch_assoc($menu_result)) {
+                ?>
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="https://via.placeholder.com/200x150" class="card-img-top" alt="<?php echo $menu_item['name']; ?>">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $menu_item['name']; ?></h5>
+                            <p class="card-text">Description: <?php echo $menu_item['description']; ?></p>
+                            <p class="card-text">Price: $<?php echo $menu_item['price']; ?></p>
+                            <!-- Add more menu item details here -->
+                            <?php
+                            if ($menu_item['is_vegetarian']) {
+                                echo '<p class="card-text">Vegetarian: Yes</p>';
+                            } else {
+                                echo '<p class="card-text">Vegetarian: No</p>';
+                            }
+
+                            if ($menu_item['is_spicy']) {
+                                echo '<p class="card-text">Spicy: Yes</p>';
+                            } else {
+                                echo '<p class="card-text">Spicy: No</p>';
+                            }
+                            ?>
+                            <a href="#" class="btn btn-primary">Order Now</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://picsum.photos/200/150" class="card-img-top" alt="Dish 2">
-                    <div class="card-body">
-                        <h5 class="card-title">Recommended Dish 2</h5>
-                        <p class="card-text">Description of the dish.</p>
-                        <p class="card-text">Price: $10.99</p>
-                        <a href="#" class="btn btn-primary">Order Now</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="https://picsum.photos/200/150" class="card-img-top" alt="Dish 3">
-                    <div class="card-body">
-                        <h5 class="card-title">Recommended Dish 2</h5>
-                        <p class="card-text">Description of the dish.</p>
-                        <p class="card-text">Price: $10.99</p>
-                        <a href="#" class="btn btn-primary">Order Now</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Add more placeholder cards for recommended dishes for the current page here -->
+                <?php
+            }
+            ?>
         </div>
 
         <!-- Pagination (Recommended Dishes) -->
         <ul class="pagination">
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-            </li>
+            <?php
+            // Generate pagination links
+            for ($i = 1; $i <= $totalPages; $i++) {
+                echo '<li class="page-item' . ($page === $i ? ' active' : '') . '">';
+                echo '<a class="page-link" href="?page=' . $i . '">' . $i . '</a>';
+                echo '</li>';
+            }
+            ?>
         </ul>
     </section>
 
